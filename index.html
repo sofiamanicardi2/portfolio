@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofia Manicardi — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="theme-dark">
+
+  <!-- Header Fisso -->
+  <header class="main-header">
+    <div class="logo">Sofia Manicardi</div>
+    <div id="project-title-top" class="project-title-top"></div>
+    <nav class="nav-links">
+      <button class="nav-btn" data-target="projects">Projects</button>
+      <button class="nav-btn active" data-target="drafts">Drafts</button>
+      <button class="nav-btn" data-target="about">About</button>
+    </nav>
+  </header>
+
+  <!-- VISTA 1: Collage 3D Drafts (ATTIVA DI DEFAULT) -->
+  <div id="view-drafts" class="view-section active">
+    <div id="webgl-container"></div>
+    
+    <div class="hero-text" id="hero-text">
+      <span id="typewriter"></span><span class="cursor">|</span>
+    </div>
+
+    <button class="bottom-toggle" id="btn-catalogue">Catalogue</button>
+  </div>
+
+  <!-- VISTA 2: Griglia Progetti -->
+  <div id="view-projects" class="view-section">
+    <div class="projects-grid-container">
+      
+      <!-- Riga 1 -->
+      <div class="project-cell">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">Lingua</h3>
+        <span class="p-cat">Speculative<br>Design</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2023]</span>
+        <h3 class="p-name">Cosa puoi<br>dire?</h3>
+        <span class="p-cat">Editorial<br>Design</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">Lynx</h3>
+        <span class="p-cat">Type Design</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">dimuribianchi</h3>
+        <span class="p-cat">Album<br>Design</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2024]</span>
+        <h3 class="p-name">Iki</h3>
+        <span class="p-cat">Digital /<br>Brand</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2024]</span>
+        <h3 class="p-name">Contemporary<br>Zen</h3>
+        <span class="p-cat">Editorial<br>Design /<br>Fashion</span>
+      </div>
+
+      <!-- Riga 2 -->
+      <div class="project-cell">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">Lymphatic<br>Archives</h3>
+        <span class="p-cat">Speculative /<br>Interaction<br>Design</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2024]</span>
+        <h3 class="p-name">Assisi</h3>
+        <span class="p-cat">Editorial /<br>Visual</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">Entanglement</h3>
+        <span class="p-cat">Motion / Live<br>Visuals</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Mountain<br>Beyond Sight</h3>
+        <span class="p-cat">Motion<br>Design /<br>Experimental</span>
+      </div>
+
+      <div class="project-cell">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Apple TV<br>Party Mode</h3>
+        <span class="p-cat">Product<br>Design / UI<br>Concept</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISTA 3: About Page -->
+  <div id="view-about" class="view-section">
+    <div class="about-container">
+      <div class="about-col">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="about-link">Instagram</a>
+        <a href="https://www.linkedin.com/in/sofia-manicardi300/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn</a>
+        <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="about-link">Behance</a>
+      </div>
+
+      <div class="about-col">
+        <a href="#" class="about-link">Portfolio</a>
+        <a href="#" class="about-link">Curriculum</a>
+      </div>
+
+      <div class="about-col">
+        <a href="mailto:info@sofiamanicardi.it" class="about-link underline">info@sofiamanicardi.it</a>
+      </div>
+
+      <div class="about-col bio-col">
+        <p>
+          Since I was a child, images have been my key to building stories and worlds. 
+          I am currently studying Digital Interaction Design and dedicate my time to exploring typography, 
+          editorial design, and interactive visual experiences. I constantly experiment to find new ways 
+          of communicating by combining image and interaction.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <span>v1.0.9</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+/* Header & Nav */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.logo, .nav-links {
+  pointer-events: auto;
+  font-size: 13px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #777777;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  color: #ffffff;
+}
+
+/* Gestione Viste */
+.view-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.view-section.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#webgl-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Testo Typewriter Centrale con Trasparenza & Blend Mode */
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.45); /* Opacità semitrasparente */
+  mix-blend-mode: difference;        /* Si fonde con le immagini sotto */
+  white-space: nowrap;
+}
+
+.cursor {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.6);
+  animation: blink 0.8s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Titolo al click in alto */
+.project-title-top {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.project-title-top.visible {
+  opacity: 1;
+}
+
+.bottom-toggle {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* Layout Pagina About */
+.about-container {
+  display: grid;
+  grid-template-columns: 120px 120px 200px 1.4fr;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 100vh;
+  align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.about-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  transition: opacity 0.2s ease;
+}
+
+.about-link:hover {
+  opacity: 0.6;
+}
+
+.about-link.underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bio-col p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cccccc;
+  max-width: 480px;
+}
+
+.main-footer {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  font-size: 11px;
+  color: #555555;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Layout Vista Projects a Griglia */
+.projects-grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  column-gap: 36px;
+  row-gap: 56px;
+  padding: 0 32px;
+  padding-left: 170px; /* Lascia lo spazio a sinistra allineato sotto al Logo */
+  height: 100vh;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+.project-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.project-cell:hover {
+  opacity: 0.7;
+}
+
+.project-cell .p-year {
+  font-size: 11px;
+  color: #777777;
+  letter-spacing: -0.01em;
+}
+
+.project-cell .p-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 2px 0;
+}
+
+.project-cell .p-cat {
+  font-size: 11px;
+  color: #888888;
+  line-height: 1.3;
+}
