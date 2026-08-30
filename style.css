@@ -1,7 +1,17 @@
-* {
+* 
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+button, .nav-btn, .home-link, .logo-btn {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  cursor: pointer !important;
+  pointer-events: auto !important;
 }
 
 body {
@@ -14,23 +24,167 @@ body {
   user-select: none;
 }
 
-/* Header & Nav */
+/* Sfondo Home a Blob Unico Sfumato */
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s;
+  pointer-events: none;
+  background-color: #040507;
+}
+
+body.in-home .gradient-bg {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* L'unico Blob: fluido, ampio e in continuo viraggio cromatico */
+.blob-single {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(90px);
+  mix-blend-mode: screen;
+  will-change: transform, left, top, background;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(200, 225, 245, 0.65) 28%,
+    rgba(145, 175, 200, 0.45) 52%,
+    rgba(95, 115, 135, 0.22) 72%,
+    transparent 88%
+  );
+  animation: morphPulse 4s ease-in-out infinite alternate, colorMorph 6s ease-in-out infinite alternate;
+}
+
+/* Deformazione morbida e pulsazione */
+@keyframes morphPulse {
+  0% {
+    border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  50% {
+    border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%;
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+  100% {
+    border-radius: 50% 50% 45% 55% / 50% 50% 55% 45%;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+}
+
+/* Ciclo continuo tra Bianco, Grigetto e Azzurrino */
+@keyframes colorMorph {
+  0% {
+    background: radial-gradient(
+      circle at 45% 45%,
+      rgba(255, 255, 255, 0.90) 0%,
+      rgba(205, 228, 248, 0.70) 30%,
+      rgba(150, 180, 205, 0.45) 55%,
+      rgba(100, 120, 140, 0.20) 75%,
+      transparent 88%
+    );
+  }
+  50% {
+    background: radial-gradient(
+      circle at 55% 50%,
+      rgba(235, 242, 250, 0.85) 0%,
+      rgba(170, 205, 235, 0.75) 32%,
+      rgba(125, 155, 185, 0.50) 58%,
+      rgba(80, 105, 125, 0.25) 78%,
+      transparent 88%
+    );
+  }
+  100% {
+    background: radial-gradient(
+      circle at 50% 55%,
+      rgba(255, 255, 255, 0.80) 0%,
+      rgba(215, 225, 235, 0.65) 26%,
+      rgba(160, 190, 220, 0.50) 52%,
+      rgba(110, 130, 150, 0.22) 74%,
+      transparent 88%
+    );
+  }
+}
+
+/* Scritta Centrale Vetro / Inversione Cromatica Dinamica */
+.home-center-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  z-index: 20;
+  mix-blend-mode: difference;
+}
+
+.home-name {
+  color: #ffffff;
+  font-weight: 600;
+  margin-right: 8px;
+  letter-spacing: -0.01em;
+}
+
+.home-link {
+  color: #ffffff;
+  font-size: 14px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.home-link:hover {
+  opacity: 0.7;
+  transform: translateY(-1px);
+}
+
+/* Header Fisso con fascia di dissolvenza nera sopra le foto */
 .main-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 90px;
   padding: 24px 32px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   z-index: 100;
   pointer-events: none;
+  background: #000000 ;
+  transition: opacity 0.4s ease;
 }
 
-.logo, .nav-links {
+.logo-btn, .nav-links {
   pointer-events: auto;
   font-size: 13px;
+}
+
+.logo-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+body.in-home .main-header {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .nav-links {
@@ -53,7 +207,35 @@ body {
   color: #ffffff;
 }
 
-/* Gestione Viste */
+/* Home / Cover */
+.home-center-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  z-index: 20;
+}
+
+.home-name {
+  color: #ffffff;
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.home-link {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.home-link:hover {
+  color: #ffffff;
+}
+
+/* Viste */
 .view-section {
   position: absolute;
   top: 0;
@@ -61,13 +243,20 @@ body {
   width: 100%;
   height: 100%;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease, visibility 0.4s;
+  background-color: #000000;
 }
 
 .view-section.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
+}
+
+#view-home.active {
+  background: transparent;
 }
 
 #webgl-container {
@@ -79,7 +268,7 @@ body {
   z-index: 1;
 }
 
-/* Testo Typewriter Centrale con Trasparenza & Blend Mode */
+/* Testo Centrale Typewriter */
 .hero-text {
   position: absolute;
   top: 50%;
@@ -88,10 +277,10 @@ body {
   z-index: 10;
   text-align: center;
   pointer-events: none;
-  font-size: 14px;
+  font-size: 13.5px;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.45); /* Opacità semitrasparente */
-  mix-blend-mode: difference;        /* Si fonde con le immagini sotto */
+  color: rgba(255, 255, 255, 0.5);
+  mix-blend-mode: difference;
   white-space: nowrap;
 }
 
@@ -102,12 +291,8 @@ body {
   margin-left: 2px;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* Titolo al click in alto */
 .project-title-top {
   position: absolute;
   left: 50%;
@@ -115,7 +300,7 @@ body {
   font-size: 13px;
   letter-spacing: -0.01em;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
@@ -137,66 +322,18 @@ body {
   z-index: 100;
 }
 
-/* Layout Pagina About */
-.about-container {
-  display: grid;
-  grid-template-columns: 120px 120px 200px 1.4fr;
-  gap: 40px;
-  max-width: 1100px;
-  margin: 0 auto;
-  height: 100vh;
-  align-items: center;
-  padding: 0 40px;
-  box-sizing: border-box;
+/* Griglia Projects */
+#view-projects {
+  z-index: 10;
 }
 
-.about-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.about-link {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 13px;
-  transition: opacity 0.2s ease;
-}
-
-.about-link:hover {
-  opacity: 0.6;
-}
-
-.about-link.underline {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.bio-col p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #cccccc;
-  max-width: 480px;
-}
-
-.main-footer {
-  position: fixed;
-  bottom: 24px;
-  right: 32px;
-  font-size: 11px;
-  color: #555555;
-  z-index: 100;
-  pointer-events: none;
-}
-
-/* Layout Vista Projects a Griglia */
 .projects-grid-container {
   display: grid;
-  grid-template-columns: repeat(6, minmax(130px, 1fr));
-  column-gap: 36px;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  column-gap: 40px;
   row-gap: 56px;
-  padding: 0 32px;
-  padding-left: 170px; /* Lascia lo spazio a sinistra allineato sotto al Logo */
+  padding: 0 40px;
+  padding-left: 170px;
   height: 100vh;
   align-content: center;
   box-sizing: border-box;
@@ -206,30 +343,123 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: opacity 0.2s ease;
 }
 
-.project-cell:hover {
-  opacity: 0.7;
+.project-cell:hover { opacity: 0.65; }
+.project-cell .p-year { font-size: 11px; color: #777777; }
+.project-cell .p-name { font-size: 13px; font-weight: 600; color: #ffffff; line-height: 1.25; margin: 2px 0; }
+.project-cell .p-cat { font-size: 11px; color: #888888; line-height: 1.3; }
+
+/* Case Study */
+#view-project-detail {
+  z-index: 50;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.project-cell .p-year {
-  font-size: 11px;
-  color: #777777;
-  letter-spacing: -0.01em;
+.project-detail-container {
+  display: grid;
+  grid-template-columns: 280px 1fr 340px;
+  min-height: 100vh;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
-.project-cell .p-name {
+.detail-sidebar-left {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
   font-size: 13px;
-  font-weight: 600;
-  color: #ffffff;
-  line-height: 1.2;
-  margin: 2px 0;
+  color: #888888;
 }
 
-.project-cell .p-cat {
+.detail-close-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.detail-close-btn:hover { opacity: 0.5; }
+.detail-title { color: #ffffff; font-size: 15px; font-weight: 600; line-height: 1.3; }
+.detail-credits { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; font-size: 12px; line-height: 1.4; }
+.detail-credits strong { color: #ffffff; font-size: 11px; letter-spacing: 0.04em; }
+.detail-credits a { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; word-break: break-all; }
+
+.detail-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 120px 0;
+}
+
+.detail-gallery img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+}
+
+.detail-sidebar-right {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.detail-desc { font-size: 13px; line-height: 1.5; color: #cccccc; }
+.detail-next-btn {
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+.detail-next-btn:hover { opacity: 0.5; }
+
+/* About */
+.about-container {
+  display: grid;
+  grid-template-columns: 120px 120px 200px 1.4fr;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 100vh;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.about-col { display: flex; flex-direction: column; gap: 8px; }
+.about-link { color: #ffffff; text-decoration: none; font-size: 13px; }
+.about-link:hover { opacity: 0.6; }
+.about-link.underline { text-decoration: underline; text-underline-offset: 3px; }
+.bio-col p { font-size: 13px; line-height: 1.6; color: #cccccc; max-width: 480px; }
+
+.main-footer {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
   font-size: 11px;
-  color: #888888;
-  line-height: 1.3;
+  color: #555555;
+  z-index: 100;
+  pointer-events: none;
 }

@@ -10,19 +10,34 @@
 </head>
 <body class="theme-dark">
 
+<!-- Sfondo Fluido con Singolo Blob Cromatico Interattivo -->
+  <div id="gradient-bg" class="gradient-bg">
+    <div class="blob-single" id="blob-cursor"></div>
+  </div>
+
   <!-- Header Fisso -->
   <header class="main-header">
-    <div class="logo">Sofia Manicardi</div>
+    <button class="logo-btn nav-btn" data-target="home">Sofia Manicardi</button>
     <div id="project-title-top" class="project-title-top"></div>
     <nav class="nav-links">
       <button class="nav-btn" data-target="projects">Projects</button>
-      <button class="nav-btn active" data-target="drafts">Drafts</button>
+      <button class="nav-btn" data-target="drafts">Drafts</button>
       <button class="nav-btn" data-target="about">About</button>
     </nav>
   </header>
 
-  <!-- VISTA 1: Collage 3D Drafts (ATTIVA DI DEFAULT) -->
-  <div id="view-drafts" class="view-section active">
+  <!-- VISTA 0: Home / Cover (Menu Centrale con Sfondo Cromatico Fluido) -->
+  <div id="view-home" class="view-section active">
+    <div class="home-center-menu">
+      <span class="home-name">Sofia Manicardi</span>
+      <button class="home-link nav-btn" data-target="projects">Projects</button>
+      <button class="home-link nav-btn" data-target="drafts">Drafts</button>
+      <button class="home-link nav-btn" data-target="about">About</button>
+    </div>
+  </div>
+
+  <!-- VISTA 1: Collage 3D Drafts -->
+  <div id="view-drafts" class="view-section">
     <div id="webgl-container"></div>
     
     <div class="hero-text" id="hero-text">
@@ -32,82 +47,83 @@
     <button class="bottom-toggle" id="btn-catalogue">Catalogue</button>
   </div>
 
-  <!-- VISTA 2: Griglia Progetti -->
+  <!-- VISTA 2: Griglia Progetti (4 Colonne) -->
   <div id="view-projects" class="view-section">
     <div class="projects-grid-container">
       
       <!-- Riga 1 -->
-      <div class="project-cell">
+      <div class="project-cell" data-slug="matrix">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Matrix:<br>The subway scene</h3>
+        <span class="p-cat">Computer<br>Animation</span>
+      </div>
+
+      <div class="project-cell" data-slug="ava">
         <span class="p-year">[2025]</span>
-        <h3 class="p-name">Lingua</h3>
+        <h3 class="p-name">AVA</h3>
+        <span class="p-cat">Corporate<br>Identity</span>
+      </div>
+
+      <div class="project-cell" data-slug="unec">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">UNEC</h3>
         <span class="p-cat">Speculative<br>Design</span>
       </div>
 
-      <div class="project-cell">
-        <span class="p-year">[2023]</span>
-        <h3 class="p-name">Cosa puoi<br>dire?</h3>
-        <span class="p-cat">Editorial<br>Design</span>
-      </div>
-
-      <div class="project-cell">
+      <div class="project-cell" data-slug="principe-granchio">
         <span class="p-year">[2025]</span>
-        <h3 class="p-name">Lynx</h3>
-        <span class="p-cat">Type Design</span>
-      </div>
-
-      <div class="project-cell">
-        <span class="p-year">[2025]</span>
-        <h3 class="p-name">dimuribianchi</h3>
-        <span class="p-cat">Album<br>Design</span>
-      </div>
-
-      <div class="project-cell">
-        <span class="p-year">[2024]</span>
-        <h3 class="p-name">Iki</h3>
-        <span class="p-cat">Digital /<br>Brand</span>
-      </div>
-
-      <div class="project-cell">
-        <span class="p-year">[2024]</span>
-        <h3 class="p-name">Contemporary<br>Zen</h3>
-        <span class="p-cat">Editorial<br>Design /<br>Fashion</span>
+        <h3 class="p-name">Il Principe<br>Granchio</h3>
+        <span class="p-cat">Game<br>Design</span>
       </div>
 
       <!-- Riga 2 -->
-      <div class="project-cell">
-        <span class="p-year">[2025]</span>
-        <h3 class="p-name">Lymphatic<br>Archives</h3>
-        <span class="p-cat">Speculative /<br>Interaction<br>Design</span>
-      </div>
-
-      <div class="project-cell">
-        <span class="p-year">[2024]</span>
-        <h3 class="p-name">Assisi</h3>
-        <span class="p-cat">Editorial /<br>Visual</span>
-      </div>
-
-      <div class="project-cell">
-        <span class="p-year">[2025]</span>
-        <h3 class="p-name">Entanglement</h3>
-        <span class="p-cat">Motion / Live<br>Visuals</span>
-      </div>
-
-      <div class="project-cell">
+      <div class="project-cell" data-slug="poldi-pezzoli">
         <span class="p-year">[2026]</span>
-        <h3 class="p-name">Mountain<br>Beyond Sight</h3>
-        <span class="p-cat">Motion<br>Design /<br>Experimental</span>
+        <h3 class="p-name">Poldi<br>Pezzoli</h3>
+        <span class="p-cat">Motion<br>Graphics</span>
       </div>
 
-      <div class="project-cell">
+      <div class="project-cell" data-slug="palazzo-filoni">
         <span class="p-year">[2026]</span>
-        <h3 class="p-name">Apple TV<br>Party Mode</h3>
-        <span class="p-cat">Product<br>Design / UI<br>Concept</span>
+        <h3 class="p-name">Palazzo<br>Filoni</h3>
+        <span class="p-cat">UX/UI<br>Interaction<br>Design</span>
+      </div>
+
+      <div class="project-cell" data-slug="diane-arbus">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Diane<br>Arbus</h3>
+        <span class="p-cat">Editorial<br>Design</span>
       </div>
 
     </div>
   </div>
 
-  <!-- VISTA 3: About Page -->
+  <!-- VISTA 3: Case Study Progetto a Tutta Pagina -->
+  <div id="view-project-detail" class="view-section">
+    <div class="project-detail-container">
+      
+      <!-- Barra Sinistra -->
+      <div class="detail-sidebar-left">
+        <button class="detail-close-btn" id="detail-close-btn">back</button>
+        <h2 class="detail-title" id="d-title"></h2>
+        <span class="detail-category" id="d-cat"></span>
+        <span class="detail-year" id="d-year"></span>
+        <div class="detail-credits" id="d-credits"></div>
+      </div>
+
+      <!-- Galleria Centrale -->
+      <div class="detail-gallery" id="d-gallery"></div>
+
+      <!-- Barra Destra -->
+      <div class="detail-sidebar-right">
+        <div class="detail-desc" id="d-desc"></div>
+        <button class="detail-next-btn" id="detail-next-btn">next</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISTA 4: About Page -->
   <div id="view-about" class="view-section">
     <div class="about-container">
       <div class="about-col">
@@ -122,7 +138,7 @@
       </div>
 
       <div class="about-col">
-        <a href="mailto:info@sofiamanicardi.it" class="about-link underline">info@sofiamanicardi.it</a>
+        <a href="mailto:manicardisofia3@gmail.com" class="about-link underline">manicardisofia3@gmail.com</a>
       </div>
 
       <div class="about-col bio-col">
