@@ -24,7 +24,7 @@ body {
   user-select: none;
 }
 
-/* Sfondo Home a Blob Unico Sfumato */
+/* Sfondo Home - Sfumatura Morbida, Eterea ed Evanescente */
 .gradient-bg {
   position: fixed;
   top: 0;
@@ -35,9 +35,9 @@ body {
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s ease, visibility 0.6s;
+  transition: opacity 0.8s ease, visibility 0.8s;
   pointer-events: none;
-  background-color: #040507;
+  background-color: #050608;
 }
 
 body.in-home .gradient-bg {
@@ -45,74 +45,75 @@ body.in-home .gradient-bg {
   visibility: visible;
 }
 
-/* L'unico Blob: fluido, ampio e in continuo viraggio cromatico */
+/* L'unico Blob Sfumato (Bianco Perla, Grigietto Satinato e Azzurro Polvere) */
 .blob-single {
   position: absolute;
-  width: 900px;
-  height: 900px;
+  width: 1150px;
+  height: 1150px;
   border-radius: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  filter: blur(90px);
+  filter: blur(125px); /* Sfocatura ultra-profonda per eliminare qualsiasi bordo */
   mix-blend-mode: screen;
   will-change: transform, left, top, background;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(200, 225, 245, 0.65) 28%,
-    rgba(145, 175, 200, 0.45) 52%,
-    rgba(95, 115, 135, 0.22) 72%,
-    transparent 88%
+    rgba(255, 255, 255, 0.70) 0%,
+    rgba(225, 232, 240, 0.48) 22%,
+    rgba(165, 185, 205, 0.32) 42%,
+    rgba(105, 125, 145, 0.16) 62%,
+    rgba(40, 55, 70, 0.06) 78%,
+    transparent 90%
   );
-  animation: morphPulse 4s ease-in-out infinite alternate, colorMorph 6s ease-in-out infinite alternate;
+  animation: morphPulse 6s ease-in-out infinite alternate, colorMorph 9s ease-in-out infinite alternate;
 }
 
-/* Deformazione morbida e pulsazione */
+/* Deformazione lenta, morbida e organica */
 @keyframes morphPulse {
   0% {
-    border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%;
-    transform: translate(-50%, -50%) scale(0.95);
+    border-radius: 46% 54% 52% 48% / 54% 48% 52% 46%;
+    transform: translate(-50%, -50%) scale(0.96);
   }
   50% {
-    border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%;
-    transform: translate(-50%, -50%) scale(1.18);
+    border-radius: 52% 48% 55% 45% / 46% 54% 46% 54%;
+    transform: translate(-50%, -50%) scale(1.12);
   }
   100% {
-    border-radius: 50% 50% 45% 55% / 50% 50% 55% 45%;
+    border-radius: 48% 52% 46% 54% / 52% 46% 54% 48%;
     transform: translate(-50%, -50%) scale(1.02);
   }
 }
 
-/* Ciclo continuo tra Bianco, Grigetto e Azzurrino */
+/* Viraggio cromatico continuo tra Bianco, Grigio e Azzurrino */
 @keyframes colorMorph {
   0% {
     background: radial-gradient(
-      circle at 45% 45%,
-      rgba(255, 255, 255, 0.90) 0%,
-      rgba(205, 228, 248, 0.70) 30%,
-      rgba(150, 180, 205, 0.45) 55%,
-      rgba(100, 120, 140, 0.20) 75%,
+      circle at 48% 48%,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(228, 235, 242, 0.50) 24%,
+      rgba(160, 182, 202, 0.32) 44%,
+      rgba(95, 118, 138, 0.15) 65%,
       transparent 88%
     );
   }
   50% {
     background: radial-gradient(
-      circle at 55% 50%,
-      rgba(235, 242, 250, 0.85) 0%,
-      rgba(170, 205, 235, 0.75) 32%,
-      rgba(125, 155, 185, 0.50) 58%,
-      rgba(80, 105, 125, 0.25) 78%,
-      transparent 88%
+      circle at 52% 50%,
+      rgba(242, 246, 250, 0.68) 0%,
+      rgba(195, 215, 232, 0.48) 26%,
+      rgba(142, 170, 195, 0.30) 48%,
+      rgba(85, 108, 128, 0.14) 68%,
+      transparent 90%
     );
   }
   100% {
     background: radial-gradient(
-      circle at 50% 55%,
-      rgba(255, 255, 255, 0.80) 0%,
-      rgba(215, 225, 235, 0.65) 26%,
-      rgba(160, 190, 220, 0.50) 52%,
-      rgba(110, 130, 150, 0.22) 74%,
+      circle at 50% 53%,
+      rgba(255, 255, 255, 0.65) 0%,
+      rgba(215, 225, 235, 0.45) 22%,
+      rgba(155, 178, 200, 0.28) 46%,
+      rgba(100, 120, 140, 0.12) 66%,
       transparent 88%
     );
   }
@@ -462,4 +463,73 @@ body.in-home .main-header {
   color: #555555;
   z-index: 100;
   pointer-events: none;
+}
+
+/* Cursore zoom sulle immagini della galleria */
+.detail-gallery img {
+  cursor: zoom-in;
+  transition: opacity 0.2s ease;
+}
+
+.detail-gallery img:hover {
+  opacity: 0.88;
+}
+
+/* Lightbox Overlay */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  cursor: zoom-out;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-modal img {
+  cursor: zoom-out;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  transform: scale(0.96);
+  transition: transform 0.3s ease;
+}
+
+.lightbox-modal.active img {
+  transform: scale(1);
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 28px;
+  right: 36px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  z-index: 2010;
+}
+
+.lightbox-close-btn:hover {
+  opacity: 1;
 }

@@ -61,16 +61,16 @@ const projectsDatabase = {
 const slugsList = Object.keys(projectsDatabase);
 let currentSlugIndex = 0;
 
-// --- 2. Setup Three.js per Drafts (Layout Esatto Stella Facconi - Piani Solidi e Paralleli) ---
+// --- 2. Setup Three.js per Drafts (Materiali Leggeri & Piani Paralleli) ---
 const container = document.getElementById('webgl-container');
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
 camera.position.set(0, 0, 7.5);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // 1.5 per evitare crash di memoria su Safari
 container.appendChild(renderer.domElement);
 
 const worldGroup = new THREE.Group();
@@ -79,59 +79,42 @@ scene.add(worldGroup);
 const textureLoader = new THREE.TextureLoader();
 const meshes = [];
 
-// Mappatura esatta di coordinate, dimensioni e piani Z dallo screenshot di Stella
+// Mappatura delle posizioni finali
 const draftsLayout = [
-  // --- GRUPPO CENTRALE ---
-  // Matter (orizzontale in primo piano al centro)
-  { img: 'assets/images/DIANE2.jpg', title: 'Diane Arbus',              x:  0.0,  y: -0.65, z:  0.50 },
-  // Finestra UI / Screenshot al centro
-  { img: 'assets/images/AVA1.jpg', title: 'AVA', x: -0.3,  y:  0.15, z:  0.25 },
-  // Poster Typo Verticale Grigio
-  { img: 'assets/images/UNEC1.png', title: 'UNEC',      x:  0.75, y: -0.20, z:  0.15 },
-  // Fiore Digitale / Glow dietro
-  { img: 'assets/images/granchio1.png', title: 'Principe Granchio',       x: -0.05, y:  0.60, z: -0.10 },
-  // Diagramma a fili sotto Matter
-  { img: 'assets/images/FILONI1.png', title: 'Palazzo Filoni',  x: -0.35, y: -1.05, z: -0.05 },
+  // Centro
+  { img: 'assets/images/DIANE2.jpg', title: 'Diane Arbus',              x:  0.0,  y: -0.65, z:  0.50, w: 1.60, h: 0.65 },
+  { img: 'assets/images/AVA1.jpg', title: 'AVA',                        x: -0.3,  y:  0.15, z:  0.25, w: 1.35, h: 0.85 },
+  { img: 'assets/images/UNEC1.png', title: 'UNEC',                      x:  0.75, y: -0.20, z:  0.15, w: 1.10, h: 1.90 },
+  { img: 'assets/images/granchio1.png', title: 'Principe Granchio',     x: -0.05, y:  0.60, z: -0.10, w: 0.95, h: 0.95 },
+  { img: 'assets/images/FILONI1.png', title: 'Palazzo Filoni',          x: -0.35, y: -1.05, z: -0.05, w: 1.15, h: 1.15 },
 
-  // --- ALA SINISTRA ---
-  // Occhio / Texture ASCII orizzontale
-  { img: 'assets/images/matrix1.jpg', title: 'Matrix: The subway scene',        x: -1.80, y:  0.10, z:  0.30 },
-  // Card Verde / Tabella Codice all'estrema sinistra
-  { img: 'assets/images/UNEC2.jpg', title: 'UNEC',     x: -3.50, y: -0.25, z:  0.10 },
-  // Occhio / Foto scura in basso a sinistra
-  { img: 'assets/images/img5.webp', title: 'Gaze Focus',          x: -2.90, y: -1.15, z:  0.40, w: 1.20, h: 1.00 },
-  // Diagramma Blu orizzontale in basso
-  { img: 'assets/images/UNEC3.jpg', title: 'UNEC',          x: -2.10, y: -1.95, z:  0.20 },
-  // Scultura 3D sospesa in alto a sinistra
-  { img: 'assets/images/img6.webp', title: 'Monolith Study',      x: -3.00, y:  1.30, z: -0.20, w: 1.00, h: 1.25 },
+  // Ala Sinistra
+  { img: 'assets/images/matrix1.jpg', title: 'Matrix: The subway scene', x: -1.80, y:  0.10, z:  0.30, w: 1.25, h: 0.70 },
+  { img: 'assets/images/UNEC2.jpg', title: 'UNEC',                      x: -3.50, y: -0.25, z:  0.10, w: 1.40, h: 0.85 },
+  { img: 'assets/images/img5.webp', title: 'Gaze Focus',                x: -2.90, y: -1.15, z:  0.40, w: 1.20, h: 1.00 },
+  { img: 'assets/images/UNEC3.jpg', title: 'UNEC',                      x: -2.10, y: -1.95, z:  0.20, w: 1.40, h: 0.85 },
+  { img: 'assets/images/img6.webp', title: 'Monolith Study',            x: -3.00, y:  1.30, z: -0.20, w: 1.00, h: 1.25 },
 
-  // --- FASCIA SUPERIORE ---
-  // Logo ricamato bianco su nero in alto al centro
-  { img: 'assets/images/img1.webp', title: 'Embroidered Type',    x: -0.65, y:  1.75, z: -0.15, w: 1.15, h: 0.90 },
-  // Borsa / Pelle nera in alto a destra
-  { img: 'assets/images/img3.webp', title: 'Leather Tote',        x:  1.35, y:  1.20, z: -0.30, w: 1.15, h: 1.25 },
-  // Modello 3D Wireframe in alto a destra
-  { img: 'assets/images/matrix2.jpg', title: 'Matrix: The subway scene',     x:  2.30, y:  1.55, z: -0.25, w: 1.10, h: 0.65 },
+  // Fascia Superiore
+  { img: 'assets/images/img1.webp', title: 'Embroidered Type',          x: -0.65, y:  1.75, z: -0.15, w: 1.15, h: 0.90 },
+  { img: 'assets/images/img3.webp', title: 'Leather Tote',              x:  1.35, y:  1.20, z: -0.30, w: 1.15, h: 1.25 },
+  { img: 'assets/images/matrix2.jpg', title: 'Matrix: The subway scene', x:  2.30, y:  1.55, z: -0.25, w: 1.10, h: 0.65 },
 
-  // --- ALA DESTRA ---
-  // Unicorno / Card orizzontale rosa
-  { img: 'assets/images/matrix4.jpg', title: 'Matrix: The subway scene',   x:  1.85, y: -0.80, z:  0.35, w: 1.30, h: 0.90 },
-  // Scena teatrale scura all'estrema destra
-  { img: 'assets/images/AVA2.jpg', title: 'AVA',          x:  3.10, y:  0.15, z: -0.15 },
-  // ASCII scuro sotto la scena
-  { img: 'assets/images/granchio2.png', title: 'Principe Granchio',       x:  3.20, y: -0.50, z:  0.10, w: 1.25, h: 0.70 }
+  // Ala Destra
+  { img: 'assets/images/matrix4.jpg', title: 'Matrix: The subway scene', x:  1.85, y: -0.80, z:  0.35, w: 1.30, h: 0.90 },
+  { img: 'assets/images/AVA2.jpg', title: 'AVA',                        x:  3.10, y:  0.15, z: -0.15, w: 1.15, h: 1.45 },
+  { img: 'assets/images/granchio2.png', title: 'Principe Granchio',     x:  3.20, y: -0.50, z:  0.10, w: 1.25, h: 0.70 }
 ];
 
 draftsLayout.forEach((item, index) => {
-  const geo = new THREE.PlaneGeometry(item.w, item.h);
+  const geo = new THREE.PlaneGeometry(item.w || 1.15, item.h || 1.45);
   
-  // Materiale solido opaco (elimina l'effetto vetro)
   const mat = new THREE.MeshBasicMaterial({
     color: 0xffffff,
-    transparent: false, // Carta solida opaca
+    transparent: true,
+    opacity: 0, // Partono completamente invisibili
     side: THREE.DoubleSide,
-    depthTest: true,
-    depthWrite: true
+    depthTest: true
   });
 
   textureLoader.load(
@@ -141,57 +124,95 @@ draftsLayout.forEach((item, index) => {
       mat.needsUpdate = true; 
     },
     undefined,
-    () => { 
-      mat.color.setHex(0x181818); 
-    }
+    () => { mat.color.setHex(0x111111); }
   );
 
   const mesh = new THREE.Mesh(geo, mat);
+  // Posizione finale salvata
   mesh.position.set(item.x, item.y, item.z);
-  mesh.rotation.set(0, 0, 0); // Piani perfettamente paralleli tra loro
+  mesh.rotation.set(0, 0, 0);
+  mesh.visible = false; // Nascoste all'avvio
 
   mesh.userData = { 
     id: index, 
     title: item.title, 
-    origPos: { x: item.x, y: item.y, z: item.z }
+    origPos: { x: item.x, y: item.y, z: item.z } 
   };
 
   worldGroup.add(mesh);
   meshes.push(mesh);
 });
 
-// --- 3. Animazione Typewriter + Entrata Progressiva Solida ---
+// --- 3. Macchina da Scrivere su Schermo Nero + Piazzamento Card a Mano Invisibile ---
 const textToType = "A collection of fragments in perpetual state of becoming.";
 const typewriterEl = document.getElementById('typewriter');
 let typeIndex = 0;
-let isTyping = false;
+let isDraftsAnimated = false;
+let typeInterval = null;
 
-function runDraftsEntrance() {
-  if (!isTyping && typewriterEl) {
-    isTyping = true;
+function startDraftsExperience() {
+  if (isDraftsAnimated) return;
+  isDraftsAnimated = true;
+
+  // 1. Reset: tutto nero e invisibile
+  meshes.forEach(m => {
+    m.visible = false;
+    m.material.opacity = 0;
+  });
+
+  if (typewriterEl) {
     typewriterEl.textContent = "";
     typeIndex = 0;
-    function type() {
-      if (typeIndex < textToType.length) {
-        typewriterEl.textContent += textToType.charAt(typeIndex);
-        typeIndex++;
-        setTimeout(type, 38);
-      }
-    }
-    type();
   }
+  clearInterval(typeInterval);
 
-  // Le card arrivano in profondità scalando da 0 a 1 mantenendosi completamente opache
-  const shuffled = [...meshes].sort(() => Math.random() - 0.5);
-  shuffled.forEach((m, idx) => {
-    m.scale.set(0.001, 0.001, 0.001);
-    gsap.to(m.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
-      duration: 1.1,
-      delay: 0.15 + (idx * 0.06),
-      ease: "power2.out"
+  // 2. Battitura testo al centro su schermo nero
+  typeInterval = setInterval(() => {
+    if (typewriterEl && typeIndex < textToType.length) {
+      typewriterEl.textContent += textToType.charAt(typeIndex);
+      typeIndex++;
+    } else {
+      clearInterval(typeInterval);
+    }
+  }, 36);
+
+  // 3. Comparsa sequenziale a caso: una dopo l'altra come posizionate nello spazio
+  // Ordine casuale per non farle uscire tutte insieme
+  const shuffledIndices = meshes.map((_, i) => i).sort(() => Math.random() - 0.5);
+
+  shuffledIndices.forEach((meshIdx, step) => {
+    const mesh = meshes[meshIdx];
+    const orig = mesh.userData.origPos;
+
+    // Delay progressivo: compare una card ogni ~180ms a partire da dopo che la prima riga è scritta
+    const delayTime = 0.8 + (step * 0.22);
+
+    // Offset di arrivo: arriva da una posizione leggermente sfasata (effetto piazzamento)
+    const offsetX = (Math.random() - 0.5) * 0.8;
+    const offsetY = (Math.random() - 0.5) * 0.8;
+    const offsetZ = 1.2 + Math.random() * 0.8;
+
+    gsap.delayedCall(delayTime, () => {
+      mesh.visible = true;
+      // Posizione provvisoria leggermente staccata
+      mesh.position.set(orig.x + offsetX, orig.y + offsetY, orig.z + offsetZ);
+      mesh.material.opacity = 0;
+
+      // Movimento fluido verso la posizione finale
+      gsap.to(mesh.position, {
+        x: orig.x,
+        y: orig.y,
+        z: orig.z,
+        duration: 0.85,
+        ease: "power2.out"
+      });
+
+      // Comparsa opaca decisa
+      gsap.to(mesh.material, {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power1.out"
+      });
     });
   });
 }
@@ -324,7 +345,7 @@ function switchSection(target) {
       viewDrafts?.classList.add('active');
       document.querySelectorAll('[data-target="drafts"]').forEach(b => b.classList.add('active'));
       document.body.style.overflowY = 'hidden';
-      runDraftsEntrance();
+      startDraftsExperience();
     }
   }
 }
@@ -439,8 +460,8 @@ window.addEventListener('mousemove', (e) => {
 function animateHomeBackground() {
   if (document.body.classList.contains('in-home')) {
     // Inerzia fluida
-    currentX += (targetX - currentX) * 0.1;
-    currentY += (targetY - currentY) * 0.1;
+    currentX += (targetX - currentX) * 0.06;
+    currentY += (targetY - currentY) * 0.06;
 
     const cursorBlob = document.getElementById('blob-cursor');
     if (cursorBlob) {
@@ -451,6 +472,44 @@ function animateHomeBackground() {
   requestAnimationFrame(animateHomeBackground);
 }
 animateHomeBackground();
+
+
+
+// --- Gestione Lightbox Fullscreen con Toggle al Click ---
+const lightbox = document.getElementById('lightbox-modal');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+
+function openLightbox(src) {
+  if (!lightbox || !lightboxImg) return;
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove('active');
+  lightboxImg.src = '';
+}
+
+// 1. Click sull'immagine della galleria: va a schermo intero
+document.addEventListener('click', (e) => {
+  const targetImg = e.target.closest('.detail-gallery img');
+  if (targetImg) {
+    openLightbox(targetImg.src);
+  }
+});
+
+// 2. Secondo click (sull'immagine o sullo sfondo): torna alla pagina precedente
+lightbox?.addEventListener('click', closeLightbox);
+lightboxCloseBtn?.addEventListener('click', closeLightbox);
+
+// 3. Chiusura rapida con tasto Escape
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
+    closeLightbox();
+  }
+});
 
 
 
