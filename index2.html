@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head >
+  <link rel="stylesheet" href="https://use.typekit.net/rlp3oek.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofia Manicardi — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="theme-dark">
+
+<!-- Sfondo Fluido con Singolo Blob Cromatico Interattivo -->
+  <div id="gradient-bg" class="gradient-bg">
+    <div class="blob-single" id="blob-cursor"></div>
+  </div>
+
+  <!-- Header Fisso -->
+  <header class="main-header">
+    <button class="logo-btn nav-btn" data-target="home">Sofia Manicardi</button>
+    <div id="project-title-top" class="project-title-top"></div>
+    <nav class="nav-links">
+      <button class="nav-btn" data-target="projects">Projects</button>
+      <button class="nav-btn" data-target="drafts">Drafts</button>
+      <button class="nav-btn" data-target="about">About</button>
+    </nav>
+  </header>
+
+  <!-- VISTA 0: Home / Cover (Menu Centrale con Sfondo Cromatico Fluido) -->
+  <div id="view-home" class="view-section active">
+    <div class="home-center-menu">
+      <span class="home-name">Sofia Manicardi</span>
+      <button class="home-link nav-btn" data-target="projects">Projects</button>
+      <button class="home-link nav-btn" data-target="drafts">Drafts</button>
+      <button class="home-link nav-btn" data-target="about">About</button>
+    </div>
+  </div>
+
+  <!-- VISTA 1: Collage 3D Drafts -->
+  <div id="view-drafts" class="view-section">
+    <div id="webgl-container"></div>
+    
+    <div class="hero-text" id="hero-text">
+      <span id="typewriter"></span><span class="cursor">|</span>
+    </div>
+
+    <button class="bottom-toggle" id="btn-catalogue">Catalogue</button>
+  </div>
+
+  <!-- VISTA 2: Griglia Progetti (4 Colonne) -->
+  <div id="view-projects" class="view-section">
+    <div class="projects-grid-container">
+      
+      <!-- Riga 1 -->
+      <div class="project-cell" data-slug="matrix">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Matrix:<br>The subway scene</h3>
+        <span class="p-cat">Computer<br>Animation</span>
+      </div>
+
+      <div class="project-cell" data-slug="ava">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">AVA</h3>
+        <span class="p-cat">Corporate<br>Identity</span>
+      </div>
+
+      <div class="project-cell" data-slug="unec">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">UNEC</h3>
+        <span class="p-cat">Speculative<br>Design</span>
+      </div>
+
+      <div class="project-cell" data-slug="principe-granchio">
+        <span class="p-year">[2025]</span>
+        <h3 class="p-name">Il Principe<br>Granchio</h3>
+        <span class="p-cat">Game<br>Design</span>
+      </div>
+
+      <!-- Riga 2 -->
+      <div class="project-cell" data-slug="poldi-pezzoli">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Poldi<br>Pezzoli</h3>
+        <span class="p-cat">Motion<br>Graphics</span>
+      </div>
+
+      <div class="project-cell" data-slug="palazzo-filoni">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Palazzo<br>Filoni</h3>
+        <span class="p-cat">UX/UI<br>Interaction<br>Design</span>
+      </div>
+
+      <div class="project-cell" data-slug="diane-arbus">
+        <span class="p-year">[2026]</span>
+        <h3 class="p-name">Diane<br>Arbus</h3>
+        <span class="p-cat">Editorial<br>Design</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VISTA 3: Case Study Progetto a Tutta Pagina -->
+  <div id="view-project-detail" class="view-section">
+    <div class="project-detail-container">
+      
+      <!-- Barra Sinistra -->
+      <div class="detail-sidebar-left">
+        <button class="detail-close-btn" id="detail-close-btn">back</button>
+        <h2 class="detail-title" id="d-title"></h2>
+        <span class="detail-category" id="d-cat"></span>
+        <span class="detail-year" id="d-year"></span>
+        <div class="detail-credits" id="d-credits"></div>
+      </div>
+
+      <!-- Galleria Centrale -->
+      <div class="detail-gallery" id="d-gallery"></div>
+
+      <!-- Barra Destra -->
+      <div class="detail-sidebar-right">
+        <div class="detail-desc" id="d-desc"></div>
+        <button class="detail-next-btn" id="detail-next-btn">next</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox Overlay a Schermo Intero -->
+  <div id="lightbox-modal" class="lightbox-modal">
+    <button class="lightbox-close-btn" id="lightbox-close-btn">✕</button>
+    <img id="lightbox-img" src="" alt="Fullscreen view">
+  </div>
+
+<!-- VISTA 4: About Page -->
+<div id="view-about" class="view-section">
+  <div class="about-container">
+    
+    <!-- Colonna 1: Social Links -->
+    <div class="about-col">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="about-link underline">Instagram</a>
+      <a href="https://www.linkedin.com/in/sofia-manicardi300/" target="_blank" rel="noopener noreferrer" class="about-link underline">LinkedIn</a>
+      <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="about-link underline">Behance</a>
+    </div>
+
+    <!-- Colonna 2: Download Portfolio e CV -->
+    <div class="about-col">
+      <a href="assets/docs/Sofia_Manicardi_Portfolio.pdf" download="Sofia_Manicardi_Portfolio.pdf" class="about-link underline">Portfolio</a>
+      <a href="assets/docs/Sofia_Manicardi_CV.pdf" download="Sofia_Manicardi_CV.pdf" class="about-link underline">Curriculum</a>
+    </div>
+
+    <!-- Colonna 3: Email -->
+    <div class="about-col">
+      <a href="mailto:manicardisofia3@gmail.com" class="about-link underline">manicardisofia3@gmail.com</a>
+    </div>
+
+    <!-- Colonna 4: Bio -->
+    <div class="about-col bio-col">
+      <p>
+        Communication designer based in Milan, currently studying at Politecnico di Milano. Academic research delves into experimentation, focusing also on the conceptual part aspects of projects. It spans editorial, motion, and game design. 
+Artistic practice investigates the narrative potential of objects, activated through minimal interventions and a rigorous approach.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <span>v1.0.9</span>
+  </footer>
+
+  <script src="script2.js"></script>
+</body>
+</html>

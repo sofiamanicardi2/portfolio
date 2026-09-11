@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sofia Manicardi — Portfolio</title>
+  <link rel="stylesheet" href="https://use.typekit.net/rlp3oek.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body class="theme-dark">
 
-<!-- Sfondo Fluido con Singolo Blob Cromatico Interattivo -->
   <div id="gradient-bg" class="gradient-bg">
     <div class="blob-single" id="blob-cursor"></div>
   </div>
@@ -21,37 +20,31 @@
     <div id="project-title-top" class="project-title-top"></div>
     <nav class="nav-links">
       <button class="nav-btn" data-target="projects">Projects</button>
-      <button class="nav-btn" data-target="drafts">Drafts</button>
+      <button class="nav-btn" data-target="gallery">Gallery</button>
       <button class="nav-btn" data-target="about">About</button>
     </nav>
   </header>
 
-  <!-- VISTA 0: Home / Cover (Menu Centrale con Sfondo Cromatico Fluido) -->
+  <!-- VISTA 0: Home / Cover -->
   <div id="view-home" class="view-section active">
     <div class="home-center-menu">
       <span class="home-name">Sofia Manicardi</span>
       <button class="home-link nav-btn" data-target="projects">Projects</button>
-      <button class="home-link nav-btn" data-target="drafts">Drafts</button>
+      <button class="home-link nav-btn" data-target="gallery">Gallery</button>
       <button class="home-link nav-btn" data-target="about">About</button>
     </div>
   </div>
 
-  <!-- VISTA 1: Collage 3D Drafts -->
-  <div id="view-drafts" class="view-section">
-    <div id="webgl-container"></div>
-    
-    <div class="hero-text" id="hero-text">
-      <span id="typewriter"></span><span class="cursor">|</span>
+  <!-- VISTA 1: Gallery Fotografica (3 Colonne) -->
+  <div id="view-gallery" class="view-section">
+    <div class="photo-gallery-grid" id="photo-gallery-grid">
+      <!-- Le immagini verranno caricate dinamicamente da JS prendendo le prime 3 foto di ogni progetto -->
     </div>
-
-    <button class="bottom-toggle" id="btn-catalogue">Catalogue</button>
   </div>
 
-  <!-- VISTA 2: Griglia Progetti (4 Colonne) -->
   <div id="view-projects" class="view-section">
     <div class="projects-grid-container">
       
-      <!-- Riga 1 -->
       <div class="project-cell" data-slug="matrix">
         <span class="p-year">[2026]</span>
         <h3 class="p-name">Matrix:<br>The subway scene</h3>
@@ -76,7 +69,6 @@
         <span class="p-cat">Game<br>Design</span>
       </div>
 
-      <!-- Riga 2 -->
       <div class="project-cell" data-slug="poldi-pezzoli">
         <span class="p-year">[2026]</span>
         <h3 class="p-name">Poldi<br>Pezzoli</h3>
@@ -102,45 +94,51 @@
   <div id="view-project-detail" class="view-section">
     <div class="project-detail-container">
       
-      <!-- Barra Sinistra -->
+      <!-- Barra Sinistra (Ora contiene solo i crediti) -->
       <div class="detail-sidebar-left">
-        <button class="detail-close-btn" id="detail-close-btn">back</button>
-        <h2 class="detail-title" id="d-title"></h2>
-        <span class="detail-category" id="d-cat"></span>
-        <span class="detail-year" id="d-year"></span>
         <div class="detail-credits" id="d-credits"></div>
       </div>
 
       <!-- Galleria Centrale -->
       <div class="detail-gallery" id="d-gallery"></div>
 
-      <!-- Barra Destra -->
+      <!-- Barra Destra (Titolo, Descrizione e Pulsanti) -->
       <div class="detail-sidebar-right">
+        <div class="detail-header-right">
+          <h2 class="detail-title" id="d-title"></h2>
+          <span class="detail-category" id="d-cat"></span>
+          <span class="detail-year" id="d-year"></span>
+        </div>
         <div class="detail-desc" id="d-desc"></div>
-        <button class="detail-next-btn" id="detail-next-btn">next</button>
+        
+        <!-- Nuova area pulsanti sotto la descrizione -->
+        <div class="detail-nav-buttons about-link underline">
+          <button class="detail-close-btn about-link underline" id="detail-close-btn">back</button>
+          <button class="detail-next-btn about-link underline" id="detail-next-btn">next</button>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- Lightbox Overlay a Schermo Intero -->
   <div id="lightbox-modal" class="lightbox-modal">
     <button class="lightbox-close-btn" id="lightbox-close-btn">✕</button>
-    <img id="lightbox-img" src="" alt="Fullscreen view">
+    <img id="lightbox-img" src="" alt="Fullscreen view" style="display: none;">
+    <video id="lightbox-video" src="" autoplay loop playsinline style="display: none;"></video>
   </div>
 
-  <!-- VISTA 4: About Page -->
   <div id="view-about" class="view-section">
     <div class="about-container">
+      
       <div class="about-col">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="about-link">Instagram</a>
-        <a href="https://www.linkedin.com/in/sofia-manicardi300/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn</a>
-        <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="about-link">Behance</a>
+        <a href="https://www.instagram.com/sofiamanicardi_/?hl=bg" target="_blank" rel="noopener noreferrer" class="about-link underline">Instagram</a>
+        <a href="https://www.linkedin.com/in/sofia-manicardi300/" target="_blank" rel="noopener noreferrer" class="about-link underline">LinkedIn</a>
+        <a href="https://www.behance.net/sofiamanicardi" target="_blank" rel="noopener noreferrer" class="about-link underline">Behance</a>
       </div>
 
       <div class="about-col">
-        <a href="#" class="about-link">Portfolio</a>
-        <a href="#" class="about-link">Curriculum</a>
+        <a href="assets/docs/Sofia_Manicardi_Portfolio.pdf" download="Sofia_Manicardi_Portfolio.pdf" class="about-link underline">Portfolio</a>
+        <a href="assets/docs/Sofia_Manicardi_CV.pdf" download="Sofia_Manicardi_CV.pdf" class="about-link underline">Curriculum</a>
       </div>
 
       <div class="about-col">
@@ -149,16 +147,14 @@
 
       <div class="about-col bio-col">
         <p>
-          Since I was a child, images have been my key to building stories and worlds. 
-          I am currently studying Digital Interaction Design and dedicate my time to exploring typography, 
-          editorial design, and interactive visual experiences. I constantly experiment to find new ways 
-          of communicating by combining image and interaction.
+          Sono una designer con base a Milano. Nel mio lavoro, unisco un forte rigore metodologico alla voglia costante di sperimentare con le nuove tecnologie. Amo esplorare come il design tradizionale possa dialogare con i linguaggi contemporanei, portando il racconto visivo su piattaforme diverse: mi muovo fluidamente tra progetti editoriali, brand identity, contenuti interattivi e il mondo del game design.
+Attraverso un’estetica pulita e razionale, unita all’uso della tecnologia, il mio obiettivo è trasformare dati e informazioni in veri e propri viaggi interattivi, interrogandomi costantemente su cosa significhi essere una designer nel panorama digitale di oggi.
         </p>
       </div>
+
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="main-footer">
     <span>v1.0.9</span>
   </footer>
