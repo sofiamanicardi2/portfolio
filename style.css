@@ -742,11 +742,12 @@ body.in-home .main-header {
   .about-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* 240px in alto protegge il logo. 60px in basso lo fa poggiare vicino al fondo */
-    padding: 240px 24px 60px 24px; 
+    /* Usiamo 100dvh (Dynamic) che rispetta le barre di Safari! */
+    min-height: 100dvh; 
+    /* Aumentiamo il padding in basso a 120px per sollevarlo dalla barra del telefono */
+    padding: 240px 24px 120px 24px; 
     gap: 40px 12px;
-    min-height: 100vh;
-    align-content: end; /* LA MAGIA: Spinge tutto il contenuto verso il fondo dello schermo */
+    align-content: end; 
   }
   
   .about-col.bio-col {
