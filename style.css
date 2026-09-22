@@ -602,3 +602,174 @@ body.in-home .main-header {
     grid-template-columns: 1fr; /* Singola colonna su mobile */
   }
 }
+
+
+/* --- MOBILE E SMARTPHONE (Fino a 768px) --- */
+@media (max-width: 768px) {
+  
+  /* 1. HEADER FISSO CON FASCIA NERA ANTI-SOVRAPPOSIZIONE */
+  .main-header {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 85px;
+    padding: 24px 24px 0 24px;
+    background: linear-gradient(to bottom, #000000 65%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none;
+    z-index: 200; /* Sopra ai testi che scorrono */
+  }
+
+  /* Logo bloccato a sinistra, abbassato a 160px (+20px) */
+  .logo-btn {
+    position: fixed;
+    top: 160px;
+    left: 24px;
+    transform: none;
+    font-size: 14px;
+    pointer-events: auto;
+    z-index: 100;
+  }
+
+  /* Menù di navigazione in alto a destra dentro la fascia nera */
+  .nav-links {
+    position: relative;
+    top: 0;
+    right: 0;
+    gap: 16px;
+    pointer-events: auto;
+    z-index: 210;
+  }
+
+  .home-center-menu {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .home-name {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  /* 2. FIX SCROLL E LAYOUT PROGETTI A DESTRA */
+  #view-projects {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .projects-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    /* padding-top a 160px per allinearsi perfettamente a Sofia Manicardi */
+    padding: 160px 24px 180px 140px; 
+    gap: 56px; 
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .project-cell {
+    align-items: flex-end; 
+    text-align: right;
+  }
+
+  .project-cell .p-name {
+    text-align: right;
+  }
+
+  /* 3. DETTAGLIO PROGETTO (Case Study) */
+/* --- NASCONDI LOGO NEI PROGETTI SU MOBILE --- */
+  body.in-detail .logo-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* 3. DETTAGLIO PROGETTO (Case Study) */
+  .project-detail-container {
+    display: flex;
+    flex-direction: column;
+    padding: 160px 24px 120px 24px;
+    height: auto;
+  }
+
+  /* Spacchettiamo la barra destra per estrarre Titolo e Descrizione */
+  .detail-sidebar-right {
+    display: contents; 
+  }
+
+  /* --- NUOVO ORDINE ELEMENTI (Dall'alto verso il basso) --- */
+  
+  /* 1. Titolo in cima */
+  .detail-header-right { 
+    order: 1; 
+  }
+  
+  /* 2. Descrizione sotto il titolo */
+  .detail-desc { 
+    order: 2; 
+    margin-bottom: 40px; 
+  }
+  
+  /* 3. Crediti sotto la descrizione */
+  .detail-sidebar-left { 
+    order: 3; 
+    position: relative; 
+    height: auto;
+    margin-bottom: 40px; 
+  }
+  
+  /* 4. Galleria fotografica sotto i crediti */
+  .detail-gallery { 
+    order: 4; 
+    padding: 0 0 40px 0; 
+    gap: 24px; 
+  }
+  
+  /* 5. Pulsanti Back/Next alla fine di tutto */
+  .detail-nav-buttons { 
+    order: 5; 
+    margin-top: 20px; 
+    justify-content: flex-start; 
+  }
+
+  /* 4. GALLERY */
+  .photo-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 160px;
+    padding-bottom: 120px;
+  }
+
+  /* 5. ABOUT SU MOBILE */
+  .about-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Aumentiamo il padding-top per proteggere il logo da schermi molto piccoli */
+    /* Riduciamo il padding-bottom per far poggiare il testo in basso */
+    padding: 240px 24px 80px 24px; 
+    gap: 40px 12px;
+    min-height: 100vh; /* Obbliga il contenitore a essere alto quanto lo schermo */
+    align-content: end; /* Spinge tutta la griglia (bio + link) verso il basso */
+  }
+  
+  .about-col.bio-col {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+
+  .bio-col p {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  /* Blob in background */
+  .blob-single {
+    width: 800px;
+    height: 800px;
+    filter: blur(90px);
+  }
+  
+  /* Footer */
+  .main-footer {
+    bottom: 16px;
+    right: 16px;
+  }
+}

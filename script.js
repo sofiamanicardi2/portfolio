@@ -162,6 +162,7 @@ function switchSection(target) {
   // Resetta navigazione
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.body.classList.remove('in-home');
+  document.body.classList.remove('in-detail');
 
   if (target === 'home') {
     document.body.classList.add('in-home');
@@ -272,6 +273,8 @@ function openProjectPage(slug) {
 
   const projectTitleEl = document.getElementById('project-title-top');
   if (projectTitleEl) projectTitleEl.classList.remove('visible');
+
+  document.body.classList.add('in-detail');
 
   document.getElementById('view-home')?.classList.remove('active');
   document.getElementById('view-gallery')?.classList.remove('active');
