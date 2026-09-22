@@ -742,12 +742,11 @@ body.in-home .main-header {
   .about-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Aumentiamo il padding-top per proteggere il logo da schermi molto piccoli */
-    /* Riduciamo il padding-bottom per far poggiare il testo in basso */
-    padding: 240px 24px 80px 24px; 
+    /* 240px in alto protegge il logo. 60px in basso lo fa poggiare vicino al fondo */
+    padding: 240px 24px 60px 24px; 
     gap: 40px 12px;
-    min-height: 100vh; /* Obbliga il contenitore a essere alto quanto lo schermo */
-    align-content: end; /* Spinge tutta la griglia (bio + link) verso il basso */
+    min-height: 100vh;
+    align-content: end; /* LA MAGIA: Spinge tutto il contenuto verso il fondo dello schermo */
   }
   
   .about-col.bio-col {
